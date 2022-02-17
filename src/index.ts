@@ -1,24 +1,46 @@
-import { Application, Request, Response } from 'express';
+import { Application } from 'express';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import typeDefs from './typeDefs';
+
+import { userMutations, userQueries } from './resolvers/users';
+import { ApolloServer } from 'apollo-server-express';
 
 dotenv.config();
 
-const app: Application = express();
+const main = async () => {
+  const app: Application = express();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+  app.use(cors({ origin: '*', credentials: true }));
 
-app.use(express.json());
+  app.use(express.json());
 
-app.get('/', async (req: Request, res: Response) => {
-  const getUsers = await prisma.users.findMany();
-  res.status(200).json(getUsers);
-});
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers: {
+      Query: {
+        ...userQueries,
+      },
+      Mutation: {
+        ...userMutations,
+      },
+    },
+  });
 
-app.listen(process.env.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server ready at http://localhost:${process.env.PORT}`);
-});
+  await apolloServer.start();
+
+  apolloServer.applyMiddleware({
+    app,
+    cors: false,
+  });
+
+  app.listen(process.env.PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(
+      `Server ready at http://localhost:${process.env.PORT}${apolloServer.graphqlPath}`,
+    );
+  });
+};
+
+main();
