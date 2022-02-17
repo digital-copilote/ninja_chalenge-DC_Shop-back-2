@@ -24,3 +24,13 @@ export interface IOrga {
   idUser: number;
   siret: string;
 }
+
+export interface IOrder {
+  idOrder: number;
+  price: number;
+  date: Date;
+  address: string;
+  zipCode: string;
+  city: string;
+  idUser: number;
+}

@@ -140,6 +140,7 @@ const typeDefs = gql`
     message: String
     user: Users
   }
+
   input createOrganizationInput {
     idOrganization: Int
     name: String
@@ -163,20 +164,49 @@ const typeDefs = gql`
     idUser: Int
     siret: String
   }
-  type UpdateOrganizationResponse {
+
+    type UpdateOrganizationResponse {
     message: String
     organization: Organizations
   }
+
+  input createOrderInput {
+    idOrder: Int
+    price: Float
+    date: Date
+    address: String
+    zipCode: String
+    city: String
+    idUser: Int
+  }
+
+  input updateOrderInput {
+    idOrder: Int
+    price: Float
+    date: Date
+    address: String
+    zipCode: String
+    city: String
+    idUser: Int
+  }
+
+    type UpdateOrderResponse {
+    message: String
+    order: Orders
+  }
+
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
     deleteUser(idUser: ID!): Users
     createOrga(data: createOrganizationInput!): Organizations
-    updateOrga(
-      idOrganization: ID!
-      data: updateOrganizationInput!
-    ): UpdateOrganizationResponse
+    updateOrga(idOrganization: ID! data: updateOrganizationInput!): UpdateOrganizationResponse
     deleteOrga(idOrganization: ID!): Organizations
+    createOrder(data: createOrderInput!): Orders
+    updateOrder(idOrder: ID! data: updateOrderInput!): UpdateOrderResponse
+    deleteOrder(idOrder: ID!): Orders
+
   }
 `;
 
