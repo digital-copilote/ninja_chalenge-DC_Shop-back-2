@@ -110,7 +110,6 @@ const typeDefs = gql`
   }
 
   input userCreateInput {
-    id_user: ID!
     lastname: String
     firstname: String
     birthday: Date
@@ -125,7 +124,6 @@ const typeDefs = gql`
   }
 
   input updateUserInput {
-    id_user: ID!
     lastname: String
     firstname: String
     birthday: Date
