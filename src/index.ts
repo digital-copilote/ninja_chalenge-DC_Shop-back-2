@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import typeDefs from './typeDefs';
 
-import { userQueries } from './resolvers/users';
+import { userMutations, userQueries } from './resolvers/users';
 import { ApolloServer } from 'apollo-server-express';
 
 dotenv.config();
@@ -21,6 +21,9 @@ const main = async () => {
     resolvers: {
       Query: {
         ...userQueries,
+      },
+      Mutation: {
+        ...userMutations,
       },
     },
   });
