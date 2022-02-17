@@ -68,32 +68,41 @@ export const userMutations = {
     args: { idUser: number; data: IUser },
     _context: Context,
   ) => {
-    try {
-      const hashedPassword =
-        args.data.password && (await crypt.hashPassword(args.data.password));
-      const userUpdated = await prisma.users.update({
-        where: {
-          idUser: +args.idUser,
-        },
-        data: {
-          lastname: args.data.lastname,
-          firstname: args.data.firstname,
-          birthday: args.data.birthday,
-          phone: args.data.phone,
-          email: args.data.email,
-          address: args.data.address,
-          zipCode: args.data.zipCode,
-          city: args.data.city,
-          role: args.data.role,
-          bio: args.data.bio,
-          password: hashedPassword,
-        },
-      });
-      return {
-        message: `${userUpdated.firstname} ${userUpdated.lastname} has been updated!`,
-      };
-    } catch (err) {
-      throw new ErrorHandler(404, 'Not Found');
+    const emailExisting = await prisma.users.findUnique({
+      where: {
+        email: args.data.email,
+      },
+    });
+    if (!emailExisting) {
+      try {
+        const hashedPassword =
+          args.data.password && (await crypt.hashPassword(args.data.password));
+        const userUpdated = await prisma.users.update({
+          where: {
+            idUser: +args.idUser,
+          },
+          data: {
+            lastname: args.data.lastname,
+            firstname: args.data.firstname,
+            birthday: args.data.birthday,
+            phone: args.data.phone,
+            email: args.data.email,
+            address: args.data.address,
+            zipCode: args.data.zipCode,
+            city: args.data.city,
+            role: args.data.role,
+            bio: args.data.bio,
+            password: hashedPassword,
+          },
+        });
+        return {
+          message: `${userUpdated.firstname} ${userUpdated.lastname} has been updated!`,
+        };
+      } catch (err) {
+        throw new ErrorHandler(404, 'Not Found');
+      }
+    } else {
+      throw new ErrorHandler(409, 'Email Already exists');
     }
   },
 
