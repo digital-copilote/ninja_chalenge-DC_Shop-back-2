@@ -4,9 +4,9 @@
   "description": "e-shop t-shirt",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --pretty --respawn ./src/index.js",
+    "dev": "ts-node-dev --pretty --respawn ./src/index.ts",
     "build": "tsc",
-    "start": "nodemon src/index.js",
+    "start": "nodemon src/index.ts",
     "lint": "eslint \"./**/*.ts\" --fix",
     "prettify": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/digital-copilote//ninja_chalenge-DC_Shop-back-2#readme",
   "dependencies": {
+    "@prisma/client": "^3.9.2",
     "apollo-server": "^3.6.3",
     "argon2": "^0.28.4",
     "cors": "^2.8.5",
@@ -46,6 +47,7 @@
     "eslint-plugin-react": "^7.23.1",
     "lint-staged": "^10.5.4",
     "prettier": "^2.5.1",
+    "prisma": "^3.9.2",
     "ts-node-dev": "^1.1.8",
     "tslint": "^5.12.1",
     "typescript": "^4.5.5"
