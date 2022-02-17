@@ -167,16 +167,21 @@ const typeDefs = gql`
     message: String
     organization: Organizations
   }
+  type DeleteOrganizationResponse {
+    message: String
+    organization: Organizations
+  }
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
     deleteUser(idUser: ID!): Users
-    createOrga(data: createOrganizationInput!): Organizations
-    updateOrga(
+    createOrganization(data: createOrganizationInput!): Organizations
+    updateOrganization(
       idOrganization: ID!
       data: updateOrganizationInput!
     ): UpdateOrganizationResponse
-    deleteOrga(idOrganization: ID!): Organizations
+    deleteOrganization(idOrganization: ID!): DeleteOrganizationResponse
   }
 `;
 

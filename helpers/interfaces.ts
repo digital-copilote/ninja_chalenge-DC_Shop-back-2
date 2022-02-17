@@ -13,7 +13,7 @@ export interface IUser {
   bio?: string;
 }
 
-export interface IOrga {
+export interface IOrganization {
   idOrganization: number;
   name: string;
   phone: string;
