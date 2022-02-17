@@ -11,87 +11,93 @@ datasource db {
 }
 
 model Users {
-  id_user        Int             @id @default(autoincrement())
-  lastname       String          @db.VarChar(100)
-  firstname      String          @db.VarChar(100)
-  birthday       DateTime        @db.Date
-  phone          String          @db.VarChar(30)
-  email          String          @db.VarChar(255)
-  hashedPassword String          @db.VarChar(255)
-  address        String          @db.VarChar(255)
-  zipCode        String          @db.VarChar(10)
-  city           String          @db.VarChar(150)
-  role           String          @default("user") @db.VarChar(50)
-  bio            String?         @db.Text
-  Orders         Orders[]
-  Organisations  Organizations[]
-  Draws          Draws[]
+  idUser        Int             @id @default(autoincrement())
+  lastname      String          @db.VarChar(100)
+  firstname     String          @db.VarChar(100)
+  birthday      DateTime        @db.Date
+  phone         String          @db.VarChar(30)
+  email         String          @unique @db.VarChar(255)
+  password      String          @db.VarChar(255)
+  address       String          @db.VarChar(255)
+  zipCode       String          @db.VarChar(10)
+  city          String          @db.VarChar(150)
+  role          String          @default("user") @db.VarChar(50)
+  bio           String?         @db.Text
+  orders        Orders[]
+  organisations Organizations[]
+  draws         Draws[]
+
 }
 
 model Orders {
-  id_order Int         @id @default(autoincrement())
-  price    Float
-  date     DateTime    @db.DateTime(0)
-  address  String      @db.VarChar(255)
-  zipCode  String      @db.VarChar(10)
-  city     String      @db.VarChar(150)
-  id_user  Int
-  user     Users       @relation(fields: [id_user], references: [id_user])
-  Shirts   OrderItem[]
+  idOrder Int           @id @default(autoincrement())
+  price   Float
+  date    DateTime      @db.DateTime(0)
+  address String        @db.VarChar(255)
+  zipCode String        @db.VarChar(10)
+  city    String        @db.VarChar(150)
+  idUser  Int
+  user    Users         @relation(fields: [idUser], references: [idUser])
+  shirts  OrdersItems[]
 }
 
 model Organizations {
-  id_organization Int     @id @default(autoincrement())
-  name            String  @db.VarChar(255)
-  phone           String  @db.VarChar(30)
-  email           String  @db.VarChar(255)
-  address         String  @db.VarChar(255)
-  zipCode         String  @db.VarChar(10)
-  city            String  @db.VarChar(150)
-  id_user         Int
-  user            Users   @relation(fields: [id_user], references: [id_user])
-  Draws           Draws[]
+  idOrganization Int     @id @default(autoincrement())
+  siret          String  @unique @db.VarChar(14)
+  name           String  @db.VarChar(255)
+  phone          String  @db.VarChar(30)
+  email          String  @unique @db.VarChar(255)
+  address        String  @db.VarChar(255)
+  zipCode        String  @db.VarChar(10)
+  city           String  @db.VarChar(150)
+  idUser         Int
+  user           Users   @relation(fields: [idUser], references: [idUser])
+  draws          Draws[]
+
 }
 
 model Themes {
-  id_theme Int     @id @default(autoincrement())
-  name     String  @db.VarChar(255)
-  Draws    Draws[]
+  idTheme Int     @id @default(autoincrement())
+  name    String  @db.VarChar(255)
+  draws   Draws[]
 }
 
 model Draws {
-  id_draw         Int           @id @default(autoincrement())
-  name            String        @db.VarChar(255)
-  id_user         Int
-  user            Users         @relation(fields: [id_user], references: [id_user])
-  id_organization Int
-  organization    Organizations @relation(fields: [id_organization], references: [id_organization])
-  id_theme        Int
-  theme           Themes        @relation(fields: [id_theme], references: [id_theme])
-  Sizes           Shirts[]
+
+  idDraw         Int           @id @default(autoincrement())
+  name           String        @db.VarChar(255)
+  idUser         Int
+  urlDraw        String        @db.VarChar(255)
+  user           Users         @relation(fields: [idUser], references: [idUser])
+  idOrganization Int
+  organization   Organizations @relation(fields: [idOrganization], references: [idOrganization])
+  idTheme        Int
+  theme          Themes        @relation(fields: [idTheme], references: [idTheme])
+  sizes          Shirts[]
+
 }
 
 model Shirts {
-  id_shirt Int         @id @default(autoincrement())
-  price    Float
-  id_draw  Int
-  draw     Draws       @relation(fields: [id_draw], references: [id_draw])
-  id_size  Int
-  size     Sizes       @relation(fields: [id_size], references: [id_size])
-  Orders   OrderItem[]
+  idShirt Int           @id @default(autoincrement())
+  price   Float
+  idDraw  Int
+  draw    Draws         @relation(fields: [idDraw], references: [idDraw])
+  idSize  Int
+  size    Sizes         @relation(fields: [idSize], references: [idSize])
+  orders  OrdersItems[]
 }
 
 model Sizes {
-  id_size Int      @id @default(autoincrement())
-  name    String   @db.VarChar(5)
-  Draws   Shirts[]
+  idSize Int      @id @default(autoincrement())
+  name   String   @db.VarChar(5)
+  draws  Shirts[]
 }
 
-model OrderItem {
-  id_orders_has_shirts Int    @id @default(autoincrement())
-  quantity             Int
-  id_shirt             Int
-  shirt                Shirts @relation(fields: [id_shirt], references: [id_shirt])
-  id_order             Int
-  order                Orders @relation(fields: [id_order], references: [id_order])
+model OrdersItems {
+  idOrderItem Int    @id @default(autoincrement())
+  quantity    Int
+  idShirt     Int
+  shirt       Shirts @relation(fields: [idShirt], references: [idShirt])
+  idOrder     Int
+  order       Orders @relation(fields: [idOrder], references: [idOrder])
 }

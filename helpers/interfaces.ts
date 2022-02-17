@@ -1,11 +1,11 @@
-export interface CreateUser {
+export interface IUser {
   id_user: number;
   lastname: string;
   firstname: string;
   birthday: Date;
   phone: string;
   email: string;
-  hashedPassword: string;
+  password: string;
   address: string;
   zipCode: string;
   city: string;

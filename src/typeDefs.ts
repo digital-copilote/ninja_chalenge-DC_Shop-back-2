@@ -3,110 +3,110 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
   scalar Date
 
-  type User {
-    id_user: ID!
+  type Users {
+    idUser: ID!
     lastname: String
     firstname: String
     birthday: Date
     phone: String
     email: String!
-    hashedPassword: String
+    password: String
     address: String
     zipCode: String
     city: String
     role: String
     bio: String
-    Orders: [Orders]
-    Organizations: [Organizations]
-    Draws: [Draws]
+    orders: [Orders]
+    organizations: [Organizations]
+    draws: [Draws]
   }
 
   type Orders {
-    id_order: ID!
+    idOrder: ID!
     price: Float
     date: Date
     address: String
     zipCode: String
     city: String
-    id_user: ID!
-    user: User
-    Shirts: [OrderItem]
+    idUser: ID!
+    user: Users
+    shirts: [OrdersItems]
   }
 
   type Organizations {
-    id_organisation: ID!
+    idOrganization: ID!
     name: String
     phone: String
     email: String
     address: String
     zipCode: String
     city: String
-    id_user: ID!
-    user: User
-    Draws: [Draws]
+    idUser: ID!
+    user: Users
+    draws: [Draws]
   }
 
   type Themes {
-    id_theme: ID!
+    idTheme: ID!
     name: String
-    Draws: [Draws]
+    draws: [Draws]
   }
 
   type Draws {
-    id_draw: ID!
+    idDraw: ID!
     name: String
-    id_user: ID!
-    user: User
-    id_organisation: ID!
-    organisation: Organizations
-    id_theme: ID!
+
+    idUser: ID!
+    user: Users
+    idOrganization: ID!
+    organization: Organizations
+    idTheme: ID!
     theme: Themes
-    Sizes: [Shirts]
+    sizes: [Shirts]
   }
 
   type Shirts {
-    id_shirt: ID!
+    idShirt: ID!
     price: Float
-    id_draw: ID!
+    idDraw: ID!
     draw: Draws
-    id_size: ID!
+    idSize: ID!
     size: Sizes
-    Orders: [OrderItem]
+    orders: [OrdersItems]
   }
 
   type Sizes {
-    id_size: ID!
+    idSize: ID!
     name: String
-    Draws: [Shirts]
+    draws: [Shirts]
   }
 
-  type OrderItem {
-    id_orders_has_shirts: ID!
+  type OrdersItems {
+    idOrderItem: ID!
     quantity: Int
-    id_shirt: ID!
+    idShirt: ID!
     shirt: Shirts
-    id_order: ID!
     order: Orders
   }
 
   type Query {
-    AllUsers: [User]
-    OneUser(id_user: ID!): User
-    UserOrganization(id_user: ID!): [Organizations]
+    AllUsers: [Users]
+    OneUser(idUser: ID!): Users
+    UserOrganization(idUser: ID!): [Organizations]
     AllOrders: [Orders]
-    OneOrder(id_order: ID!): Orders
+    OneOrder(idOrderItem: ID!): Orders
     AllOrganizations: [Organizations]
-    OneOrganization(id_organisation: ID!): Organizations
+    OneOrganization(idOrganization: ID!): Organizations
     AllThemes: [Themes]
-    OneTheme(id_theme: ID!): Themes
+    OneTheme(idTheme: ID!): Themes
     AllDraws: [Draws]
-    OneDraw(id_drawn: ID!): Draws
+    OneDraw(idDraw: ID!): Draws
     AllSizes: [Sizes]
-    OneSize(id_size: ID!): Sizes
+    OneSize(idSize: ID!): Sizes
     AllShirts: [Shirts]
-    OneShirt(id_shirt: ID!): Shirts
-    AllOrderItem: [OrderItem]
-    OneOrderItem(id_orders_has_shirts: ID!): OrderItem
+    OneShirt(idShirt: ID!): Shirts
+    AllOrderItem: [OrdersItems]
+    OneOrderItem(idOrderItem: ID!): OrdersItems
   }
 
   input userCreateInput {
@@ -115,7 +115,7 @@ const typeDefs = gql`
     birthday: Date
     phone: String
     email: String!
-    hashedPassword: String
+    password: String
     address: String
     zipCode: String
     city: String
@@ -129,7 +129,7 @@ const typeDefs = gql`
     birthday: Date
     phone: String
     email: String!
-    hashedPassword: String
+    password: String
     address: String
     zipCode: String
     city: String
@@ -139,13 +139,13 @@ const typeDefs = gql`
 
   type UpdateUserResponse {
     message: String
-    user: User
+    user: Users
   }
 
   type Mutation {
-    createUser(data: userCreateInput!): User
-    updateUser(id_user: ID!, data: updateUserInput!): UpdateUserResponse
-    deleteUser(id_user: ID!): User
+    createUser(data: userCreateInput!): Users
+    updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
+    deleteUser(idUser: ID!): Users
   }
 `;
 
