@@ -26,6 +26,7 @@ model Users {
   orders        Orders[]
   organisations Organizations[]
   draws         Draws[]
+
 }
 
 model Orders {
@@ -52,6 +53,7 @@ model Organizations {
   idUser         Int
   user           Users   @relation(fields: [idUser], references: [idUser])
   draws          Draws[]
+
 }
 
 model Themes {
@@ -61,6 +63,7 @@ model Themes {
 }
 
 model Draws {
+
   idDraw         Int           @id @default(autoincrement())
   name           String        @db.VarChar(255)
   idUser         Int
@@ -71,6 +74,7 @@ model Draws {
   idTheme        Int
   theme          Themes        @relation(fields: [idTheme], references: [idTheme])
   sizes          Shirts[]
+
 }
 
 model Shirts {
