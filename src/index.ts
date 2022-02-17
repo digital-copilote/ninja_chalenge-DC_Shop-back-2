@@ -2,6 +2,8 @@ import { Application, Request, Response } from 'express';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 dotenv.config();
 
@@ -11,8 +13,9 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.status(200).send('coucou');
+app.get('/', async (req: Request, res: Response) => {
+  const getUsers = await prisma.users.findMany();
+  res.status(200).json(getUsers);
 });
 
 app.listen(process.env.PORT, () => {
