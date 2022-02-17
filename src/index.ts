@@ -6,6 +6,7 @@ import typeDefs from './typeDefs';
 
 import { userMutations, userQueries } from './resolvers/users';
 import { ApolloServer } from 'apollo-server-express';
+import { handleError } from './Middleware/errors';
 
 dotenv.config();
 
@@ -27,6 +28,8 @@ const main = async () => {
       },
     },
   });
+
+  app.use(handleError);
 
   await apolloServer.start();
 
