@@ -6,15 +6,26 @@ import { ErrorHandler } from '../Middleware/errors';
 
 export const userQueries = {
   AllUsers: async () => {
-    return await prisma.users.findMany();
+    try {
+      const users = await prisma.users.findMany();
+      return users;
+    } catch (err) {
+      if (err instanceof Error) throw new ErrorHandler(500, err.message);
+    }
   },
 
-  OneUser: (_parent: ParentNode, args: { idUser: number }, _context: Context) => {
-    return prisma.users.findUnique({
-      where: {
-        idUser: +args.idUser,
-      },
-    });
+  OneUser: async (_parent: ParentNode, args: { idUser: number }, _context: Context) => {
+    try {
+      const user = await prisma.users.findUnique({
+        where: {
+          idUser: +args.idUser,
+        },
+        rejectOnNotFound: true,
+      });
+      return user;
+    } catch (err) {
+      throw new ErrorHandler(404, 'Not Found');
+    }
   },
 };
 
@@ -26,23 +37,27 @@ export const userMutations = {
       },
     });
     if (!emailExisting) {
-      const hashedPassword = await crypt.hashPassword(args.data.password);
-      const user = await prisma.users.create({
-        data: {
-          lastname: args.data.lastname,
-          firstname: args.data.firstname,
-          birthday: args.data.birthday,
-          phone: args.data.phone,
-          email: args.data.email,
-          password: hashedPassword,
-          address: args.data.address,
-          zipCode: args.data.zipCode,
-          city: args.data.city,
-          role: args.data.role,
-          bio: args.data.bio,
-        },
-      });
-      return user;
+      try {
+        const hashedPassword = await crypt.hashPassword(args.data.password);
+        const user = await prisma.users.create({
+          data: {
+            lastname: args.data.lastname,
+            firstname: args.data.firstname,
+            birthday: args.data.birthday,
+            phone: args.data.phone,
+            email: args.data.email,
+            password: hashedPassword,
+            address: args.data.address,
+            zipCode: args.data.zipCode,
+            city: args.data.city,
+            role: args.data.role,
+            bio: args.data.bio,
+          },
+        });
+        return user;
+      } catch (err) {
+        if (err instanceof Error) throw new ErrorHandler(500, err.message);
+      }
     } else {
       throw new ErrorHandler(409, 'Email already exists!');
     }
@@ -53,29 +68,33 @@ export const userMutations = {
     args: { idUser: number; data: IUser },
     _context: Context,
   ) => {
-    const hashedPassword =
-      args.data.password && (await crypt.hashPassword(args.data.password));
-    const userUpdated = await prisma.users.update({
-      where: {
-        idUser: +args.idUser,
-      },
-      data: {
-        lastname: args.data.lastname,
-        firstname: args.data.firstname,
-        birthday: args.data.birthday,
-        phone: args.data.phone,
-        email: args.data.email,
-        address: args.data.address,
-        zipCode: args.data.zipCode,
-        city: args.data.city,
-        role: args.data.role,
-        bio: args.data.bio,
-        password: hashedPassword,
-      },
-    });
-    return {
-      message: `${userUpdated.firstname} ${userUpdated.lastname} has been updated!`,
-    };
+    try {
+      const hashedPassword =
+        args.data.password && (await crypt.hashPassword(args.data.password));
+      const userUpdated = await prisma.users.update({
+        where: {
+          idUser: +args.idUser,
+        },
+        data: {
+          lastname: args.data.lastname,
+          firstname: args.data.firstname,
+          birthday: args.data.birthday,
+          phone: args.data.phone,
+          email: args.data.email,
+          address: args.data.address,
+          zipCode: args.data.zipCode,
+          city: args.data.city,
+          role: args.data.role,
+          bio: args.data.bio,
+          password: hashedPassword,
+        },
+      });
+      return {
+        message: `${userUpdated.firstname} ${userUpdated.lastname} has been updated!`,
+      };
+    } catch (err) {
+      throw new ErrorHandler(404, 'Not Found');
+    }
   },
 
   deleteUser: async (
@@ -83,11 +102,15 @@ export const userMutations = {
     args: { idUser: number },
     _context: Context,
   ) => {
-    const userDeleted = await prisma.users.delete({
-      where: {
-        idUser: +args.idUser,
-      },
-    });
-    return userDeleted;
+    try {
+      const userDeleted = await prisma.users.delete({
+        where: {
+          idUser: +args.idUser,
+        },
+      });
+      return userDeleted;
+    } catch (err) {
+      throw new ErrorHandler(404, 'Not Found');
+    }
   },
 };
