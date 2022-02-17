@@ -9,7 +9,7 @@ export const userQueries = {
   OneUser: (_parent: ParentNode, args: { id_user: number }, _context: Context) => {
     return prisma.users.findUnique({
       where: {
-        id_user: args.id_user,
+        id_user: +args.id_user,
       },
     });
   },

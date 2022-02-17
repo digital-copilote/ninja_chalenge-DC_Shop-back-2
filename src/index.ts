@@ -2,16 +2,42 @@ import { Application } from 'express';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import typeDefs from './typeDefs';
+
+import { userQueries } from './resolvers/users';
+import { ApolloServer } from 'apollo-server-express';
 
 dotenv.config();
 
-const app: Application = express();
+const main = async () => {
+  const app: Application = express();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+  app.use(cors({ origin: '*', credentials: true }));
 
-app.use(express.json());
+  app.use(express.json());
 
-app.listen(process.env.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server ready at http://localhost:${process.env.PORT}`);
-});
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers: {
+      Query: {
+        ...userQueries,
+      },
+    },
+  });
+
+  await apolloServer.start();
+
+  apolloServer.applyMiddleware({
+    app,
+    cors: false,
+  });
+
+  app.listen(process.env.PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(
+      `Server ready at http://localhost:${process.env.PORT}${apolloServer.graphqlPath}`,
+    );
+  });
+};
+
+main();
