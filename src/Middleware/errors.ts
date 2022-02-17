@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 require('dotenv').config();
 
 class ErrorHandler extends Error {
@@ -10,7 +10,14 @@ class ErrorHandler extends Error {
   }
 }
 
-const handleError = (err: ErrorHandler, req: Request, res: Response) => {
+const handleError = (
+  err: ErrorHandler,
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) => {
+  console.log(err.statusCode, err.message);
+
   // manage environment PROD/DEV
   const { statusCode = 500, message } = err;
 

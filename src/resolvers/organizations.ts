@@ -22,7 +22,6 @@ export const organizationMutations = {
     args: { data: IOrganization },
     _context: Context,
   ) => {
-    console.log(args);
     const organizationCreated = await prisma.organizations.create({
       data: {
         name: args.data.name,
