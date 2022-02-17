@@ -17,7 +17,7 @@ const typeDefs = gql`
     role: String
     bio: String
     Orders: [Orders]
-    Organisations: [Organisations]
+    Organizations: [Organizations]
     Draws: [Draws]
   }
 
@@ -33,7 +33,7 @@ const typeDefs = gql`
     Shirts: [OrderItem]
   }
 
-  type Organisations {
+  type Organizations {
     id_organisation: ID!
     name: String
     phone: String
@@ -58,7 +58,7 @@ const typeDefs = gql`
     id_user: ID!
     user: User
     id_organisation: ID!
-    organisation: Organisations
+    organisation: Organizations
     id_theme: ID!
     theme: Themes
     Sizes: [Shirts]
@@ -92,11 +92,11 @@ const typeDefs = gql`
   type Query {
     AllUsers: [User]
     OneUser(id_user: ID!): User
-    UserOrganisation(id_user: ID!): [Organisations]
+    UserOrganization(id_user: ID!): [Organizations]
     AllOrders: [Orders]
     OneOrder(id_order: ID!): Orders
-    AllOrganisations: [Organisations]
-    OneOrganisation(id_organisation: ID!): Organisations
+    AllOrganizations: [Organizations]
+    OneOrganization(id_organisation: ID!): Organizations
     AllThemes: [Themes]
     OneTheme(id_theme: ID!): Themes
     AllDraws: [Draws]

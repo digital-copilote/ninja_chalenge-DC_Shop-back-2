@@ -24,7 +24,7 @@ model Users {
   role           String          @default("user") @db.VarChar(50)
   bio            String?         @db.Text
   Orders         Orders[]
-  Organisations  Organisations[]
+  Organisations  Organizations[]
   Draws          Draws[]
 }
 
@@ -40,8 +40,8 @@ model Orders {
   Shirts   OrderItem[]
 }
 
-model Organisations {
-  id_organisation Int     @id @default(autoincrement())
+model Organizations {
+  id_organization Int     @id @default(autoincrement())
   name            String  @db.VarChar(255)
   phone           String  @db.VarChar(30)
   email           String  @db.VarChar(255)
@@ -64,8 +64,8 @@ model Draws {
   name            String        @db.VarChar(255)
   id_user         Int
   user            Users         @relation(fields: [id_user], references: [id_user])
-  id_organisation Int
-  organisation    Organisations @relation(fields: [id_organisation], references: [id_organisation])
+  id_organization Int
+  organization    Organizations @relation(fields: [id_organization], references: [id_organization])
   id_theme        Int
   theme           Themes        @relation(fields: [id_theme], references: [id_theme])
   Sizes           Shirts[]
