@@ -7,14 +7,10 @@ export const organizationQueries = {
     return await prisma.organizations.findMany();
   },
 
-  OneUser: (
-    _parent: ParentNode,
-    args: { id_organization: number },
-    _context: Context,
-  ) => {
+  OneUser: (_parent: ParentNode, args: { idOrganization: number }, _context: Context) => {
     return prisma.organizations.findUnique({
       where: {
-        id_organization: +args.id_organization,
+        idOrganization: +args.idOrganization,
       },
     });
   },
@@ -30,7 +26,8 @@ export const organizationMutations = {
         address: args.address,
         zipCode: args.zipCode,
         city: args.city,
-        id_user: args.id_user,
+        idUser: args.idUser,
+        siret: args.siret,
       },
     });
     return organization;
@@ -38,12 +35,12 @@ export const organizationMutations = {
 
   updateOrga: async (
     _parent: ParentNode,
-    args: { id_organization: number; data: IOrga },
+    args: { idOrganization: number; data: IOrga },
     _context: Context,
   ) => {
     const orgaUpdated = await prisma.organizations.update({
       where: {
-        id_organization: +args.id_organization,
+        idOrganization: +args.idOrganization,
       },
       data: {
         name: args.data.name,
@@ -52,7 +49,8 @@ export const organizationMutations = {
         address: args.data.address,
         zipCode: args.data.zipCode,
         city: args.data.city,
-        id_user: args.data.id_user,
+        idUser: args.data.idUser,
+        siret: args.data.siret,
       },
     });
     return {
@@ -62,12 +60,12 @@ export const organizationMutations = {
 
   deleteOrga: async (
     _parent: ParentNode,
-    args: { id_organization: number },
+    args: { idOrganization: number },
     _context: Context,
   ) => {
     const orgaDeleted = await prisma.organizations.delete({
       where: {
-        id_organization: +args.id_organization,
+        idOrganization: +args.idOrganization,
       },
     });
     return orgaDeleted;

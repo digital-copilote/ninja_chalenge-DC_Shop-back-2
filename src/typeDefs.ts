@@ -55,7 +55,6 @@ const typeDefs = gql`
   type Draws {
     idDraw: ID!
     name: String
-
     idUser: ID!
     user: Users
     idOrganization: ID!
@@ -141,11 +140,43 @@ const typeDefs = gql`
     message: String
     user: Users
   }
+  input createOrganizationInput {
+    idOrganization: Int
+    name: String
+    phone: String
+    email: String
+    address: String
+    zipCode: String
+    city: String
+    idUser: Int
+    siret: String
+  }
 
+  input updateOrganizationInput {
+    idOrganization: Int
+    name: String
+    phone: String
+    email: String
+    address: String
+    zipCode: String
+    city: String
+    idUser: Int
+    siret: String
+  }
+  type UpdateOrganizationResponse {
+    message: String
+    organization: Organizations
+  }
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
     deleteUser(idUser: ID!): Users
+    createOrga(data: createOrganizationInput!): Organizations
+    updateOrga(
+      idOrganization: ID!
+      data: updateOrganizationInput!
+    ): UpdateOrganizationResponse
+    deleteOrga(idOrganization: ID!): Organizations
   }
 `;
 

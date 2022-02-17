@@ -1,5 +1,5 @@
 export interface IUser {
-  id_user: number;
+  idUser: number;
   lastname: string;
   firstname: string;
   birthday: Date;
@@ -14,12 +14,13 @@ export interface IUser {
 }
 
 export interface IOrga {
-  id_organization: number;
+  idOrganization: number;
   name: string;
   phone: string;
   email: string;
   address: string;
   zipCode: string;
   city: string;
-  id_user: number;
+  idUser: number;
+  siret: string;
 }
