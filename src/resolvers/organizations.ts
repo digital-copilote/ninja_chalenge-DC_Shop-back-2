@@ -1,5 +1,5 @@
 import { Context } from 'vm';
-import { IOrga } from '../../helpers/interfaces';
+import { IOrganization } from '../../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 
 export const organizationQueries = {
@@ -17,28 +17,33 @@ export const organizationQueries = {
 };
 
 export const organizationMutations = {
-  createOrga: async (_parent: ParentNode, args: IOrga, _context: Context) => {
-    const organization = await prisma.organizations.create({
-      data: {
-        name: args.name,
-        phone: args.phone,
-        email: args.email,
-        address: args.address,
-        zipCode: args.zipCode,
-        city: args.city,
-        idUser: args.idUser,
-        siret: args.siret,
-      },
-    });
-    return organization;
-  },
-
-  updateOrga: async (
+  createOrganization: async (
     _parent: ParentNode,
-    args: { idOrganization: number; data: IOrga },
+    args: { data: IOrganization },
     _context: Context,
   ) => {
-    const orgaUpdated = await prisma.organizations.update({
+    console.log(args);
+    const organizationCreated = await prisma.organizations.create({
+      data: {
+        name: args.data.name,
+        phone: args.data.phone,
+        email: args.data.email,
+        address: args.data.address,
+        zipCode: args.data.zipCode,
+        city: args.data.city,
+        idUser: args.data.idUser,
+        siret: args.data.siret,
+      },
+    });
+    return organizationCreated;
+  },
+
+  updateOrganization: async (
+    _parent: ParentNode,
+    args: { idOrganization: number; data: IOrganization },
+    _context: Context,
+  ) => {
+    const organizationUpdated = await prisma.organizations.update({
       where: {
         idOrganization: +args.idOrganization,
       },
@@ -54,20 +59,22 @@ export const organizationMutations = {
       },
     });
     return {
-      message: `${orgaUpdated.name} has been updated!`,
+      message: `${organizationUpdated.name} has been updated!`,
     };
   },
 
-  deleteOrga: async (
+  deleteOrganization: async (
     _parent: ParentNode,
     args: { idOrganization: number },
     _context: Context,
   ) => {
-    const orgaDeleted = await prisma.organizations.delete({
+    const organizationDeleted = await prisma.organizations.delete({
       where: {
         idOrganization: +args.idOrganization,
       },
     });
-    return orgaDeleted;
+    return {
+      message: `${organizationDeleted.name} has been deleted!`,
+    };
   },
 };

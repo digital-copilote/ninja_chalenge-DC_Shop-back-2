@@ -6,6 +6,7 @@ import typeDefs from './typeDefs';
 
 import { userMutations, userQueries } from './resolvers/users';
 import { ApolloServer } from 'apollo-server-express';
+import { organizationMutations, organizationQueries } from './resolvers/organizations';
 
 dotenv.config();
 
@@ -21,9 +22,11 @@ const main = async () => {
     resolvers: {
       Query: {
         ...userQueries,
+        ...organizationQueries,
       },
       Mutation: {
         ...userMutations,
+        ...organizationMutations,
       },
     },
   });
