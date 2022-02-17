@@ -23,7 +23,7 @@
   "homepage": "https://github.com/digital-copilote//ninja_chalenge-DC_Shop-back-2#readme",
   "dependencies": {
     "@prisma/client": "^3.9.2",
-    "apollo-server": "^3.6.3",
+    "apollo-server-express": "^3.6.3",
     "argon2": "^0.28.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
