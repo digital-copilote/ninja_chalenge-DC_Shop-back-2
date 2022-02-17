@@ -2,6 +2,7 @@ import { Context } from 'vm';
 import { IUser } from '../../helpers/interfaces';
 import crypt from '../../helpers/users';
 import { prisma } from '../lib/prisma';
+import { ErrorHandler } from '../Middleware/errors';
 
 export const userQueries = {
   AllUsers: async () => {
@@ -43,7 +44,7 @@ export const userMutations = {
       });
       return user;
     } else {
-      throw new Error();
+      throw new ErrorHandler(409, 'Email already exists!');
     }
   },
 
@@ -52,6 +53,8 @@ export const userMutations = {
     args: { idUser: number; data: IUser },
     _context: Context,
   ) => {
+    const hashedPassword =
+      args.data.password && (await crypt.hashPassword(args.data.password));
     const userUpdated = await prisma.users.update({
       where: {
         idUser: +args.idUser,
@@ -67,6 +70,7 @@ export const userMutations = {
         city: args.data.city,
         role: args.data.role,
         bio: args.data.bio,
+        password: hashedPassword,
       },
     });
     return {
