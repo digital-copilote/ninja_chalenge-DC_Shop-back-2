@@ -25,6 +25,16 @@ export interface IOrganization {
   siret: string;
 }
 
+export interface IOrder {
+  idOrder: number;
+  price: number;
+  date: Date;
+  address: string;
+  zipCode: string;
+  city: string;
+  idUser: number;
+}
+
 export interface IDraws {
   idDraw: number;
   name: string;
