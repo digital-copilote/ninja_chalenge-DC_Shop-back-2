@@ -3,10 +3,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import typeDefs from './typeDefs';
-
 import { userMutations, userQueries } from './resolvers/users';
 import { orderMutations, orderQueries } from './resolvers/orders';
 import { ApolloServer } from 'apollo-server-express';
+import { organizationMutations, organizationQueries } from './resolvers/organizations';
+import { handleError } from './Middleware/errors';
 
 dotenv.config();
 
@@ -29,7 +30,18 @@ const main = async () => {
         ...orderMutations,
       },
     },
+    formatError: (err) => {
+      // Don't give the specific errors to the client.
+      if (err.message.startsWith('Database Error: ')) {
+        return new Error('Internal server error');
+      }
+      // Otherwise return the original error. The error can also
+      // be manipulated in other ways, as long as it's returned.
+      return err;
+    },
   });
+
+  app.use(handleError);
 
   await apolloServer.start();
 
