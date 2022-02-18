@@ -60,6 +60,7 @@ const typeDefs = gql`
     idOrganization: ID!
     organization: Organizations
     idTheme: ID!
+    urlDraw: String
     theme: Themes
     sizes: [Shirts]
   }
@@ -165,7 +166,7 @@ const typeDefs = gql`
     siret: String
   }
 
-    type UpdateOrganizationResponse {
+  type UpdateOrganizationResponse {
     message: String
     organization: Organizations
   }
@@ -190,18 +191,42 @@ const typeDefs = gql`
     idUser: Int
   }
 
-    type UpdateOrderResponse {
+  type UpdateOrderResponse {
     message: String
     order: Orders
   }
-
-
 
   type DeleteOrganizationResponse {
     message: String
     organization: Organizations
   }
 
+  input drawCreateInput {
+    idDraw: ID
+    name: String
+    idUser: Int!
+    idOrganization: Int
+    idTheme: Int!
+    urlDraw: String
+  }
+
+  input updateDrawInput {
+    idDraw: ID
+    name: String
+    idUser: Int!
+    idOrganization: Int
+    idTheme: Int!
+    urlDraw: String
+  }
+
+  type UpdateDrawResponse {
+    message: String
+    draw: Draws
+  }
+  type DeleteDrawResponse {
+    message: String
+    draw: Draws
+  }
 
   type Mutation {
     createUser(data: userCreateInput!): Users
@@ -209,10 +234,13 @@ const typeDefs = gql`
     deleteUser(idUser: ID!): Users
 
     createOrga(data: createOrganizationInput!): Organizations
-    updateOrga(idOrganization: ID! data: updateOrganizationInput!): UpdateOrganizationResponse
+    updateOrga(
+      idOrganization: ID!
+      data: updateOrganizationInput!
+    ): UpdateOrganizationResponse
     deleteOrga(idOrganization: ID!): Organizations
     createOrder(data: createOrderInput!): Orders
-    updateOrder(idOrder: ID! data: updateOrderInput!): UpdateOrderResponse
+    updateOrder(idOrder: ID!, data: updateOrderInput!): UpdateOrderResponse
     deleteOrder(idOrder: ID!): Orders
     createOrganization(data: createOrganizationInput!): Organizations
     updateOrganization(
@@ -220,6 +248,9 @@ const typeDefs = gql`
       data: updateOrganizationInput!
     ): UpdateOrganizationResponse
     deleteOrganization(idOrganization: ID!): DeleteOrganizationResponse
+    createDraw(data: drawCreateInput!): Draws
+    updateDraw(idDraw: ID!, data: updateDrawInput!): UpdateDrawResponse
+    deleteDraw(idDraw: ID!): DeleteDrawResponse
   }
 `;
 

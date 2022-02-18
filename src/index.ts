@@ -8,6 +8,7 @@ import { orderMutations, orderQueries } from './resolvers/orders';
 import { ApolloServer } from 'apollo-server-express';
 import { organizationMutations, organizationQueries } from './resolvers/organizations';
 import { handleError } from './Middleware/errors';
+import { drawsMutations, drawsQueries } from './resolvers/draws';
 
 dotenv.config();
 
@@ -25,21 +26,14 @@ const main = async () => {
         ...userQueries,
         ...orderQueries,
         ...organizationQueries,
+        ...drawsQueries,
       },
       Mutation: {
         ...userMutations,
         ...orderMutations,
         ...organizationMutations,
+        ...drawsMutations,
       },
-    },
-    formatError: (err) => {
-      // Don't give the specific errors to the client.
-      if (err.message.startsWith('Database Error: ')) {
-        return new Error('Internal server error');
-      }
-      // Otherwise return the original error. The error can also
-      // be manipulated in other ways, as long as it's returned.
-      return err;
     },
   });
 
@@ -60,4 +54,7 @@ const main = async () => {
   });
 };
 
-main();
+main().catch((err) => {
+  // eslint-disable-next-line no-console
+  console.log(err);
+});

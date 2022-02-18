@@ -34,3 +34,12 @@ export interface IOrder {
   city: string;
   idUser: number;
 }
+
+export interface IDraws {
+  idDraw: number;
+  name: string;
+  urlDraw: string;
+  idUser: number;
+  idOrganization?: number;
+  idTheme: number;
+}
