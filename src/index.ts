@@ -4,12 +4,14 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import typeDefs from './typeDefs';
 import { userMutations, userQueries } from './resolvers/users';
+import { orderMutations, orderQueries } from './resolvers/orders';
 import { ApolloServer } from 'apollo-server-express';
 import { organizationMutations, organizationQueries } from './resolvers/organizations';
 import { handleError } from './Middleware/errors';
 import { drawsMutations, drawsQueries } from './resolvers/draws';
 import { orderItemsMutations, orderItemsQueries } from './resolvers/orderItems';
-
+import { sizesMutations, sizesQueries } from './resolvers/sizes';
+import { themesMutations, themesQueries } from './resolvers/themes';
 
 dotenv.config();
 
@@ -25,15 +27,22 @@ const main = async () => {
     resolvers: {
       Query: {
         ...userQueries,
+        ...orderQueries,
         ...organizationQueries,
         ...drawsQueries,
-        ...orderItemsQueries
+        ...orderItemsQueries,
+        ...sizesQueries,
+        ...themesQueries,
       },
       Mutation: {
         ...userMutations,
+        ...orderMutations,
         ...organizationMutations,
         ...drawsMutations,
-        ...orderItemsMutations
+        ...orderItemsMutations,
+        ...sizesMutations,
+        ...themesMutations,
+
       },
     },
   });

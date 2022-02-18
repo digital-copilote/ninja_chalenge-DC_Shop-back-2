@@ -25,6 +25,16 @@ export interface IOrganization {
   siret: string;
 }
 
+export interface IOrder {
+  idOrder: number;
+  price: number;
+  date: Date;
+  address: string;
+  zipCode: string;
+  city: string;
+  idUser: number;
+}
+
 export interface IDraws {
   idDraw: number;
   name: string;
@@ -34,9 +44,20 @@ export interface IDraws {
   idTheme: number;
 }
 
+
 export interface IOrderItems {
   idOrderItem: number;
   quantity: number;
   idOrder: number;
   idShirt: number;
+}
+
+export interface ISizes {
+  idSize: number;
+  name: string;
+}
+
+export interface IThemes {
+  idTheme: number;
+  name: string;
 }
