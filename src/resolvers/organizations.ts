@@ -3,11 +3,15 @@ import { IOrganization } from '../../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 
 export const organizationQueries = {
-  AllUsers: async () => {
+  AllOrganizations: async () => {
     return await prisma.organizations.findMany();
   },
 
-  OneUser: (_parent: ParentNode, args: { idOrganization: number }, _context: Context) => {
+  OneOrganization: (
+    _parent: ParentNode,
+    args: { idOrganization: number },
+    _context: Context,
+  ) => {
     return prisma.organizations.findUnique({
       where: {
         idOrganization: +args.idOrganization,
