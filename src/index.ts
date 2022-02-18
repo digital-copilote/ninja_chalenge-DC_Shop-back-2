@@ -7,6 +7,7 @@ import { userMutations, userQueries } from './resolvers/users';
 import { ApolloServer } from 'apollo-server-express';
 import { organizationMutations, organizationQueries } from './resolvers/organizations';
 import { handleError } from './Middleware/errors';
+import { drawsMutations, drawsQueries } from './resolvers/draws';
 
 dotenv.config();
 
@@ -23,10 +24,12 @@ const main = async () => {
       Query: {
         ...userQueries,
         ...organizationQueries,
+        ...drawsQueries,
       },
       Mutation: {
         ...userMutations,
         ...organizationMutations,
+        ...drawsMutations,
       },
     },
   });

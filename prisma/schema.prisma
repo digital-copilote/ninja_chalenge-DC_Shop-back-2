@@ -69,8 +69,8 @@ model Draws {
   idUser         Int
   urlDraw        String        @db.VarChar(255)
   user           Users         @relation(fields: [idUser], references: [idUser])
-  idOrganization Int
-  organization   Organizations @relation(fields: [idOrganization], references: [idOrganization])
+  idOrganization Int?
+  organization   Organizations? @relation(fields: [idOrganization], references: [idOrganization])
   idTheme        Int
   theme          Themes        @relation(fields: [idTheme], references: [idTheme])
   sizes          Shirts[]
