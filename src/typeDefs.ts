@@ -60,6 +60,7 @@ const typeDefs = gql`
     idOrganization: ID!
     organization: Organizations
     idTheme: ID!
+    urlDraw: String
     theme: Themes
     sizes: [Shirts]
   }
@@ -172,6 +173,33 @@ const typeDefs = gql`
     organization: Organizations
   }
 
+  input drawCreateInput {
+    idDraw: ID
+    name: String
+    idUser: Int!
+    idOrganization: Int
+    idTheme: Int!
+    urlDraw: String
+  }
+
+  input updateDrawInput {
+    idDraw: ID
+    name: String
+    idUser: Int!
+    idOrganization: Int
+    idTheme: Int!
+    urlDraw: String
+  }
+
+  type UpdateDrawResponse {
+    message: String
+    draw: Draws
+  }
+  type DeleteDrawResponse {
+    message: String
+    draw: Draws
+  }
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
@@ -182,6 +210,9 @@ const typeDefs = gql`
       data: updateOrganizationInput!
     ): UpdateOrganizationResponse
     deleteOrganization(idOrganization: ID!): DeleteOrganizationResponse
+    createDraw(data: drawCreateInput!): Draws
+    updateDraw(idDraw: ID!, data: updateDrawInput!): UpdateDrawResponse
+    deleteDraw(idDraw: ID!): DeleteDrawResponse
   }
 `;
 

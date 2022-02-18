@@ -2,12 +2,19 @@ import { Context } from 'vm';
 import { IUser } from '../../helpers/interfaces';
 import crypt from '../../helpers/users';
 import { prisma } from '../lib/prisma';
+import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
 
 export const userQueries = {
   AllUsers: async () => {
     try {
-      const users = await prisma.users.findMany();
+      const users = await prisma.users.findMany({
+        include: {
+          organisations: true,
+          draws: true,
+          orders: true,
+        },
+      });
       return users;
     } catch (err) {
       if (err instanceof Error) throw new ErrorHandler(500, err.message);
@@ -19,6 +26,11 @@ export const userQueries = {
       const user = await prisma.users.findUnique({
         where: {
           idUser: +args.idUser,
+        },
+        include: {
+          organisations: true,
+          draws: true,
+          orders: true,
         },
         rejectOnNotFound: true,
       });
@@ -39,22 +51,22 @@ export const userMutations = {
     if (!emailExisting) {
       try {
         const hashedPassword = await crypt.hashPassword(args.data.password);
-        const user = await prisma.users.create({
+        const userCreated = await prisma.users.create({
           data: {
-            lastname: args.data.lastname,
-            firstname: args.data.firstname,
+            lastname: formatText(args.data.lastname),
+            firstname: formatText(args.data.firstname),
             birthday: args.data.birthday,
             phone: args.data.phone,
             email: args.data.email,
-            password: hashedPassword,
             address: args.data.address,
             zipCode: args.data.zipCode,
             city: args.data.city,
-            role: args.data.role,
+            role: args.data.role && formatText(args.data.role),
             bio: args.data.bio,
+            password: hashedPassword,
           },
         });
-        return user;
+        return userCreated;
       } catch (err) {
         if (err instanceof Error) throw new ErrorHandler(500, err.message);
       }
@@ -82,15 +94,15 @@ export const userMutations = {
             idUser: +args.idUser,
           },
           data: {
-            lastname: args.data.lastname,
-            firstname: args.data.firstname,
+            lastname: formatText(args.data.lastname),
+            firstname: formatText(args.data.firstname),
             birthday: args.data.birthday,
             phone: args.data.phone,
             email: args.data.email,
             address: args.data.address,
             zipCode: args.data.zipCode,
             city: args.data.city,
-            role: args.data.role,
+            role: formatText(args.data.role),
             bio: args.data.bio,
             password: hashedPassword,
           },

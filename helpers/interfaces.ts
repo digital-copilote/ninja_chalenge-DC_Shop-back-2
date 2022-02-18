@@ -24,3 +24,12 @@ export interface IOrganization {
   idUser: number;
   siret: string;
 }
+
+export interface IDraws {
+  idDraw: number;
+  name: string;
+  urlDraw: string;
+  idUser: number;
+  idOrganization?: number;
+  idTheme: number;
+}
