@@ -228,6 +228,25 @@ const typeDefs = gql`
     draw: Draws
   }
 
+  input themeCreateInput {
+    idTheme: ID
+    name: String
+  }
+
+  input updateThemeInput {
+    idTheme: ID
+    name: String
+  }
+
+  type UpdateThemeResponse {
+    message: String
+    theme: Themes
+  }
+  type DeleteThemeResponse {
+    message: String
+    theme: Themes
+  }
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
@@ -251,6 +270,9 @@ const typeDefs = gql`
     createDraw(data: drawCreateInput!): Draws
     updateDraw(idDraw: ID!, data: updateDrawInput!): UpdateDrawResponse
     deleteDraw(idDraw: ID!): DeleteDrawResponse
+    createTheme(data: themeCreateInput!): Themes
+    updateTheme(idTheme: ID!, data: updateThemeInput!): UpdateThemeResponse
+    deleteTheme(idTheme: ID!): DeleteThemeResponse
   }
 `;
 
