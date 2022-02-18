@@ -33,3 +33,10 @@ export interface IDraws {
   idOrganization?: number;
   idTheme: number;
 }
+
+export interface IOrderItems {
+  idOrderItem: number;
+  quantity: number;
+  idOrder: number;
+  idShirt: number;
+}
