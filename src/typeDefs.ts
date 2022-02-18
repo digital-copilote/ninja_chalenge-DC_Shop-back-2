@@ -227,30 +227,48 @@ const typeDefs = gql`
     message: String
     draw: Draws
   }
+  input sizeCreateInput {
+    idSize: ID
+    name: String
+  }
+
+  input updateSizeInput {
+    idSize: ID
+    name: String
+  }
+
+  type UpdateSizeResponse {
+    message: String
+    size: Sizes
+  }
+  type DeleteSizeResponse {
+    message: String
+    size: Sizes
+  }
 
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
     deleteUser(idUser: ID!): Users
 
-    createOrga(data: createOrganizationInput!): Organizations
-    updateOrga(
-      idOrganization: ID!
-      data: updateOrganizationInput!
-    ): UpdateOrganizationResponse
-    deleteOrga(idOrganization: ID!): Organizations
     createOrder(data: createOrderInput!): Orders
     updateOrder(idOrder: ID!, data: updateOrderInput!): UpdateOrderResponse
     deleteOrder(idOrder: ID!): Orders
+
     createOrganization(data: createOrganizationInput!): Organizations
     updateOrganization(
       idOrganization: ID!
       data: updateOrganizationInput!
     ): UpdateOrganizationResponse
     deleteOrganization(idOrganization: ID!): DeleteOrganizationResponse
+
     createDraw(data: drawCreateInput!): Draws
     updateDraw(idDraw: ID!, data: updateDrawInput!): UpdateDrawResponse
     deleteDraw(idDraw: ID!): DeleteDrawResponse
+
+    createSize(data: sizeCreateInput!): Sizes
+    updateSize(idSize: ID!, data: updateSizeInput!): UpdateSizeResponse
+    deleteSize(idSize: ID!): DeleteSizeResponse
   }
 `;
 

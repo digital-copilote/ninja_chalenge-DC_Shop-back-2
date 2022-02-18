@@ -90,7 +90,7 @@ model Shirts {
 model Sizes {
   idSize Int      @id @default(autoincrement())
   name   String   @db.VarChar(5)
-  draws  Shirts[]
+  shirt  Shirts[]
 }
 
 model OrdersItems {

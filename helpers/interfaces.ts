@@ -43,3 +43,8 @@ export interface IDraws {
   idOrganization?: number;
   idTheme: number;
 }
+
+export interface ISizes {
+  idSize: number;
+  name: string;
+}
