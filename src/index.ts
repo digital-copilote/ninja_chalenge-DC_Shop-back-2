@@ -24,10 +24,12 @@ const main = async () => {
       Query: {
         ...userQueries,
         ...orderQueries,
+        ...organizationQueries,
       },
       Mutation: {
         ...userMutations,
         ...orderMutations,
+        ...organizationMutations,
       },
     },
     formatError: (err) => {

@@ -93,7 +93,7 @@ const typeDefs = gql`
     OneUser(idUser: ID!): Users
     UserOrganization(idUser: ID!): [Organizations]
     AllOrders: [Orders]
-    OneOrder(idOrderItem: ID!): Orders
+    OneOrder(idOrder: ID!): Orders
     AllOrganizations: [Organizations]
     OneOrganization(idOrganization: ID!): Organizations
     AllThemes: [Themes]
