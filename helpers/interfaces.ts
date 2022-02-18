@@ -33,3 +33,8 @@ export interface IDraws {
   idOrganization?: number;
   idTheme: number;
 }
+
+export interface IThemes {
+  idTheme: number;
+  name: string;
+}

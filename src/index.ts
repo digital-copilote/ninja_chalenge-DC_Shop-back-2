@@ -8,6 +8,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { organizationMutations, organizationQueries } from './resolvers/organizations';
 import { handleError } from './Middleware/errors';
 import { drawsMutations, drawsQueries } from './resolvers/draws';
+import { themesMutations, themesQueries } from './resolvers/themes';
 
 dotenv.config();
 
@@ -25,11 +26,13 @@ const main = async () => {
         ...userQueries,
         ...organizationQueries,
         ...drawsQueries,
+        ...themesQueries,
       },
       Mutation: {
         ...userMutations,
         ...organizationMutations,
         ...drawsMutations,
+        ...themesMutations,
       },
     },
   });
