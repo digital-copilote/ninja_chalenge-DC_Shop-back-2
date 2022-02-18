@@ -246,6 +246,25 @@ const typeDefs = gql`
     size: Sizes
   }
 
+  input themeCreateInput {
+    idTheme: ID
+    name: String
+  }
+
+  input updateThemeInput {
+    idTheme: ID
+    name: String
+  }
+
+  type UpdateThemeResponse {
+    message: String
+    theme: Themes
+  }
+  type DeleteThemeResponse {
+    message: String
+    theme: Themes
+  }
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
@@ -269,6 +288,10 @@ const typeDefs = gql`
     createSize(data: sizeCreateInput!): Sizes
     updateSize(idSize: ID!, data: updateSizeInput!): UpdateSizeResponse
     deleteSize(idSize: ID!): DeleteSizeResponse
+
+    createTheme(data: themeCreateInput!): Themes
+    updateTheme(idTheme: ID!, data: updateThemeInput!): UpdateThemeResponse
+    deleteTheme(idTheme: ID!): DeleteThemeResponse
   }
 `;
 

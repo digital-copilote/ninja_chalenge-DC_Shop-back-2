@@ -57,11 +57,12 @@ export const sizesMutations = {
           name: formatSize(args.data.name),
         },
       });
+
       return {
         message: `Size ${sizeUpdated.name} has been updated!`,
       };
     } catch (err) {
-      if (err instanceof Error) throw new ErrorHandler(500, err.message);
+      throw new ErrorHandler(404, 'Not Found');
     }
   },
 

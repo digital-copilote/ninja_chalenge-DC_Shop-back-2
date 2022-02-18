@@ -48,3 +48,8 @@ export interface ISizes {
   idSize: number;
   name: string;
 }
+
+export interface IThemes {
+  idTheme: number;
+  name: string;
+}

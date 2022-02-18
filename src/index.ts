@@ -10,6 +10,7 @@ import { organizationMutations, organizationQueries } from './resolvers/organiza
 import { handleError } from './Middleware/errors';
 import { drawsMutations, drawsQueries } from './resolvers/draws';
 import { sizesMutations, sizesQueries } from './resolvers/sizes';
+import { themesMutations, themesQueries } from './resolvers/themes';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ const main = async () => {
         ...organizationQueries,
         ...drawsQueries,
         ...sizesQueries,
+        ...themesQueries,
       },
       Mutation: {
         ...userMutations,
@@ -36,6 +38,7 @@ const main = async () => {
         ...organizationMutations,
         ...drawsMutations,
         ...sizesMutations,
+        ...themesMutations,
       },
     },
   });
