@@ -9,6 +9,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { organizationMutations, organizationQueries } from './resolvers/organizations';
 import { handleError } from './Middleware/errors';
 import { drawsMutations, drawsQueries } from './resolvers/draws';
+import { orderItemsMutations, orderItemsQueries } from './resolvers/orderItems';
 import { sizesMutations, sizesQueries } from './resolvers/sizes';
 import { themesMutations, themesQueries } from './resolvers/themes';
 
@@ -29,6 +30,7 @@ const main = async () => {
         ...orderQueries,
         ...organizationQueries,
         ...drawsQueries,
+        ...orderItemsQueries,
         ...sizesQueries,
         ...themesQueries,
       },
@@ -37,8 +39,10 @@ const main = async () => {
         ...orderMutations,
         ...organizationMutations,
         ...drawsMutations,
+        ...orderItemsMutations,
         ...sizesMutations,
         ...themesMutations,
+
       },
     },
   });

@@ -105,7 +105,7 @@ const typeDefs = gql`
     OneSize(idSize: ID!): Sizes
     AllShirts: [Shirts]
     OneShirt(idShirt: ID!): Shirts
-    AllOrderItem: [OrdersItems]
+    AllOrderItems: [OrdersItems]
     OneOrderItem(idOrderItem: ID!): OrdersItems
   }
 
@@ -265,6 +265,29 @@ const typeDefs = gql`
     theme: Themes
   }
 
+  input orderItemCreateInput {
+    idOrderItem: ID
+    quantity: Int!
+    idShirt: Int!
+    idOrder: Int!
+  }
+
+  input updateOrderItemInput {
+    idOrderItem: ID
+    quantity: Int!
+    idShirt: Int!
+    idOrder: Int
+  }
+
+  type UpdateOrderItemResponse {
+    message: String
+    orderItem: OrdersItems
+  }
+  type DeleteOrderItemResponse {
+    message: String
+    orderItem: OrdersItems
+  }
+
   type Mutation {
     createUser(data: userCreateInput!): Users
     updateUser(idUser: ID!, data: updateUserInput!): UpdateUserResponse
@@ -285,6 +308,11 @@ const typeDefs = gql`
     updateDraw(idDraw: ID!, data: updateDrawInput!): UpdateDrawResponse
     deleteDraw(idDraw: ID!): DeleteDrawResponse
 
+
+    createOrderItem(data: orderItemCreateInput!): OrdersItems
+    updateOrderItem(idOrderItem: ID!, data: updateOrderItemInput!): UpdateOrderItemResponse
+    deleteOrderItem(idOrderItem: ID!): DeleteOrderItemResponse
+
     createSize(data: sizeCreateInput!): Sizes
     updateSize(idSize: ID!, data: updateSizeInput!): UpdateSizeResponse
     deleteSize(idSize: ID!): DeleteSizeResponse
@@ -292,6 +320,7 @@ const typeDefs = gql`
     createTheme(data: themeCreateInput!): Themes
     updateTheme(idTheme: ID!, data: updateThemeInput!): UpdateThemeResponse
     deleteTheme(idTheme: ID!): DeleteThemeResponse
+
   }
 `;
 

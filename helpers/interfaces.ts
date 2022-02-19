@@ -44,6 +44,14 @@ export interface IDraws {
   idTheme: number;
 }
 
+
+export interface IOrderItems {
+  idOrderItem: number;
+  quantity: number;
+  idOrder: number;
+  idShirt: number;
+}
+
 export interface ISizes {
   idSize: number;
   name: string;
