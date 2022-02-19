@@ -42,7 +42,6 @@ const main = async () => {
         ...orderItemsMutations,
         ...sizesMutations,
         ...themesMutations,
-
       },
     },
   });

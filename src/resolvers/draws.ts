@@ -1,5 +1,5 @@
 import { Context } from 'vm';
-import { IDraws } from '../../helpers/interfaces';
+import { IDraws } from '../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';

@@ -1,5 +1,5 @@
 import { Context } from 'apollo-server-core';
-import { IThemes } from '../../helpers/interfaces';
+import { IThemes } from '../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
