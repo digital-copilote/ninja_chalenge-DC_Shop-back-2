@@ -2,7 +2,7 @@ import { Application } from 'express';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import typeDefs from './typeDefs';
+import typeDefs from './typeDefs/typeDefs';
 import { userMutations, userQueries } from './resolvers/users';
 import { orderMutations, orderQueries } from './resolvers/orders';
 import { ApolloServer } from 'apollo-server-express';
@@ -12,6 +12,7 @@ import { drawsMutations, drawsQueries } from './resolvers/draws';
 import { orderItemsMutations, orderItemsQueries } from './resolvers/orderItems';
 import { sizesMutations, sizesQueries } from './resolvers/sizes';
 import { themesMutations, themesQueries } from './resolvers/themes';
+import { authMutations } from './resolvers/auth';
 
 dotenv.config();
 
@@ -42,8 +43,10 @@ const main = async () => {
         ...orderItemsMutations,
         ...sizesMutations,
         ...themesMutations,
+        ...authMutations,
       },
     },
+    context: ({ res }) => ({ res }),
   });
 
   app.use(handleError);
