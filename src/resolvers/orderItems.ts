@@ -1,5 +1,5 @@
 import { Context } from 'vm';
-import { IOrderItems } from '../../helpers/interfaces';
+import { IOrderItems } from '../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 import { ErrorHandler } from '../Middleware/errors';
 

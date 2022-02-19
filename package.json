@@ -29,6 +29,7 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "graphql": "^16.3.0",
+    "joi": "^17.6.0",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {

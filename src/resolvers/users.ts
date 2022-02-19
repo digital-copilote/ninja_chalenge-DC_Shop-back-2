@@ -1,9 +1,11 @@
 import { Context } from 'vm';
-import { IUser } from '../../helpers/interfaces';
-import crypt from '../../helpers/users';
+import { IUser } from '../helpers/interfaces';
+import crypt from '../helpers/users';
+import { postUser, updateUser } from '../JOI/validate';
 import { prisma } from '../lib/prisma';
 import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
+import inputValidator from '../lib/inputValidator';
 
 export const userQueries = {
   AllUsers: async () => {
@@ -43,6 +45,7 @@ export const userQueries = {
 
 export const userMutations = {
   createUser: async (_parent: ParentNode, args: { data: IUser }, _context: Context) => {
+    inputValidator(postUser, args.data);
     const emailExisting = await prisma.users.findUnique({
       where: {
         email: args.data.email,
@@ -80,6 +83,8 @@ export const userMutations = {
     args: { idUser: number; data: IUser },
     _context: Context,
   ) => {
+    inputValidator(updateUser, args.data);
+
     const emailExisting = await prisma.users.findUnique({
       where: {
         email: args.data.email,

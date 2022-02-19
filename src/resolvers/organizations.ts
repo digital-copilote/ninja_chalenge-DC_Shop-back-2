@@ -1,5 +1,5 @@
 import { Context } from 'vm';
-import { IOrganization } from '../../helpers/interfaces';
+import { IOrganization } from '../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 
 export const organizationQueries = {
