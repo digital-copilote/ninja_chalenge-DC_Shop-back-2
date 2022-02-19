@@ -1,5 +1,5 @@
 import { Context } from 'vm';
-import { ISizes } from '../../helpers/interfaces';
+import { ISizes } from '../helpers/interfaces';
 import { prisma } from '../lib/prisma';
 import { formatSize } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';

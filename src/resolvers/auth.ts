@@ -1,4 +1,4 @@
-import users from '../../helpers/users';
+import users from '../helpers/users';
 import { Response } from 'express';
 import { prisma } from '../lib/prisma';
 import { ErrorHandler } from '../Middleware/errors';
