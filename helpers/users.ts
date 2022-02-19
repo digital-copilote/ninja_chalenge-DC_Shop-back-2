@@ -1,20 +1,12 @@
-// require("dotenv").config();
+require('dotenv').config();
 import argon2 from 'argon2';
-// import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
-// const PRIVATE_KEY = process.env.TOKEN;
+const PRIVATE_KEY = process.env.TOKEN;
 
-// const calculateToken = (
-//   userEmail = "",
-//   id_user: number,
-//   origin = "",
-//   roleId = ""
-// ) => {
-//   return jwt.sign(
-//     { email: userEmail, id_user, origin, roleId },
-//     String(PRIVATE_KEY)
-//   );
-// };
+const calculateToken = (userEmail = '', id_user: number) => {
+  return jwt.sign({ email: userEmail, id_user }, String(PRIVATE_KEY));
+};
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -31,4 +23,4 @@ const verifyPassword = (plainPassword: string, hashedPassword: string) => {
   return argon2.verify(hashedPassword, plainPassword, hashingOptions);
 };
 
-export = { hashPassword, verifyPassword };
+export = { hashPassword, verifyPassword, calculateToken };
