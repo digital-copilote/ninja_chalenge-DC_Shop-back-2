@@ -1,5 +1,7 @@
 import { Context } from 'vm';
 import { IOrderItems } from '../helpers/interfaces';
+import { orderItem } from '../JOI/validate';
+import inputValidator from '../lib/inputValidator';
 import { prisma } from '../lib/prisma';
 import { ErrorHandler } from '../Middleware/errors';
 
@@ -47,6 +49,7 @@ export const orderItemsMutations = {
     args: { data: IOrderItems },
     _context: Context,
   ) => {
+    inputValidator(orderItem, args.data);
     try {
       const orderItemCreated = await prisma.ordersItems.create({
         data: {
@@ -66,6 +69,7 @@ export const orderItemsMutations = {
     args: { idOrderItem: number; data: IOrderItems },
     _context: Context,
   ) => {
+    inputValidator(orderItem, args.data);
     try {
       const orderItemUpdated = await prisma.ordersItems.update({
         where: {

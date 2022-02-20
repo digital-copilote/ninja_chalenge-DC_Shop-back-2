@@ -7,6 +7,7 @@ type Organizations {
     address: String
     zipCode: String
     city: String
+	siret: String
     idUser: ID!
     user: Users
     draws: [Draws]
