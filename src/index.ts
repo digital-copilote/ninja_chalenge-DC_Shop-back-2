@@ -13,6 +13,7 @@ import { orderItemsMutations, orderItemsQueries } from './resolvers/orderItems';
 import { sizesMutations, sizesQueries } from './resolvers/sizes';
 import { themesMutations, themesQueries } from './resolvers/themes';
 import { authMutations } from './resolvers/auth';
+import { shirtsMutations, shirtsQueries } from './resolvers/shirts';
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ const main = async () => {
         ...orderItemsQueries,
         ...sizesQueries,
         ...themesQueries,
+        ...shirtsQueries,
       },
       Mutation: {
         ...userMutations,
@@ -44,6 +46,7 @@ const main = async () => {
         ...sizesMutations,
         ...themesMutations,
         ...authMutations,
+        ...shirtsMutations,
       },
     },
     context: ({ res }) => ({ res }),

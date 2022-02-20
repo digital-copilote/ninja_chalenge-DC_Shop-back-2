@@ -56,3 +56,9 @@ export const size = Joi.object().keys({
 export const theme = Joi.object().keys({
   name: Joi.string().min(3).required(),
 });
+
+export const shirt = Joi.object().keys({
+  idDraw: Joi.number().integer().id().required(),
+  idSize: Joi.number().integer().id().required(),
+  price: Joi.number().integer().required(),
+});
