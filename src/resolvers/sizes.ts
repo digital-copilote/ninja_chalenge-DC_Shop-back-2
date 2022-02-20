@@ -1,5 +1,7 @@
 import { Context } from 'vm';
 import { ISizes } from '../helpers/interfaces';
+import { size } from '../JOI/validate';
+import inputValidator from '../lib/inputValidator';
 import { prisma } from '../lib/prisma';
 import { formatSize } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
@@ -31,6 +33,7 @@ export const sizesQueries = {
 
 export const sizesMutations = {
   createSize: async (_parent: ParentNode, args: { data: ISizes }, _context: Context) => {
+    inputValidator(size, args.data);
     try {
       const sizeCreated = await prisma.sizes.create({
         data: {
@@ -48,6 +51,7 @@ export const sizesMutations = {
     args: { idSize: number; data: ISizes },
     _context: Context,
   ) => {
+    inputValidator(size, args.data);
     try {
       const sizeUpdated = await prisma.sizes.update({
         where: {

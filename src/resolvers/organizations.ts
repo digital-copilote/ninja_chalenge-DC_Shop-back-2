@@ -1,5 +1,7 @@
 import { Context } from 'vm';
 import { IOrganization } from '../helpers/interfaces';
+import { organization } from '../JOI/validate';
+import inputValidator from '../lib/inputValidator';
 import { prisma } from '../lib/prisma';
 
 export const organizationQueries = {
@@ -26,6 +28,7 @@ export const organizationMutations = {
     args: { data: IOrganization },
     _context: Context,
   ) => {
+    inputValidator(organization, args.data);
     const organizationCreated = await prisma.organizations.create({
       data: {
         name: args.data.name,
@@ -46,6 +49,7 @@ export const organizationMutations = {
     args: { idOrganization: number; data: IOrganization },
     _context: Context,
   ) => {
+    inputValidator(organization, args.data);
     const organizationUpdated = await prisma.organizations.update({
       where: {
         idOrganization: +args.idOrganization,

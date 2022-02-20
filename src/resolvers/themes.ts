@@ -1,5 +1,7 @@
 import { Context } from 'apollo-server-core';
 import { IThemes } from '../helpers/interfaces';
+import { theme } from '../JOI/validate';
+import inputValidator from '../lib/inputValidator';
 import { prisma } from '../lib/prisma';
 import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
@@ -42,6 +44,7 @@ export const themesMutations = {
     args: { data: IThemes },
     _context: Context,
   ) => {
+    inputValidator(theme, args.data);
     try {
       const themeCreated = await prisma.themes.create({
         data: {
@@ -59,6 +62,7 @@ export const themesMutations = {
     args: { idTheme: number; data: IThemes },
     _context: Context,
   ) => {
+    inputValidator(theme, args.data);
     try {
       const drawUpdated = await prisma.themes.update({
         where: {

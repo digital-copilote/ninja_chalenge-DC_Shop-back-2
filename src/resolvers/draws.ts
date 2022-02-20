@@ -1,5 +1,7 @@
 import { Context } from 'vm';
 import { IDraws } from '../helpers/interfaces';
+import { draw } from '../JOI/validate';
+import inputValidator from '../lib/inputValidator';
 import { prisma } from '../lib/prisma';
 import { formatText } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
@@ -42,6 +44,7 @@ export const drawsQueries = {
 
 export const drawsMutations = {
   createDraw: async (_parent: ParentNode, args: { data: IDraws }, _context: Context) => {
+    inputValidator(draw, args.data);
     try {
       const drawCreated = await prisma.draws.create({
         data: {
@@ -62,6 +65,7 @@ export const drawsMutations = {
     args: { idDraw: number; data: IDraws },
     _context: Context,
   ) => {
+    inputValidator(draw, args.data);
     try {
       const drawUpdated = await prisma.draws.update({
         where: {
