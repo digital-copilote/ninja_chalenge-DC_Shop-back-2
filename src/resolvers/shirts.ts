@@ -11,7 +11,12 @@ export const shirtsQueries = {
       const shirts = await prisma.shirts.findMany({
         include: {
           size: true,
-          draw: true,
+          draw: {
+            include: {
+              theme: true,
+              user: true,
+            },
+          },
         },
       });
       return shirts;
