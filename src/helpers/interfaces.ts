@@ -59,6 +59,7 @@ export interface ISizes {
 export interface IThemes {
   idTheme: number;
   name: string;
+  color: string;
 }
 
 export interface IShirt {
