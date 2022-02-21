@@ -50,6 +50,7 @@ export const themesMutations = {
         data: {
           name: formatText(args.data.name),
           color: args.data.color,
+          iconUrl: args.data.iconUrl,
         },
       });
       return themeCreated;
@@ -72,6 +73,7 @@ export const themesMutations = {
         data: {
           name: formatText(args.data.name),
           color: args.data.color,
+          iconUrl: args.data.iconUrl,
         },
       });
       return {
