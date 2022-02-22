@@ -57,7 +57,13 @@ export const shirtsQueries = {
         },
         include: {
           size: true,
-          draw: true,
+          draw: {
+            include: {
+              user: true,
+              theme: true,
+              organization: true,
+            },
+          },
         },
         rejectOnNotFound: true,
       });
