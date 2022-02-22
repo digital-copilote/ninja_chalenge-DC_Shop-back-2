@@ -59,6 +59,7 @@ model Organizations {
 model Themes {
   idTheme Int     @id @default(autoincrement())
   name    String  @db.VarChar(255)
+  color   String  @db.VarChar(15)
   draws   Draws[]
 }
 

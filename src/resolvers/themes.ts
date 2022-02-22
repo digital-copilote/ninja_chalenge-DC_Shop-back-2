@@ -49,6 +49,7 @@ export const themesMutations = {
       const themeCreated = await prisma.themes.create({
         data: {
           name: formatText(args.data.name),
+          color: args.data.color,
         },
       });
       return themeCreated;
@@ -70,6 +71,7 @@ export const themesMutations = {
         },
         data: {
           name: formatText(args.data.name),
+          color: args.data.color,
         },
       });
       return {
