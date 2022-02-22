@@ -11,12 +11,12 @@ type Sizes {
   }
 
   input sizeCreateInput {
-    idSize: ID
+    idSize: Int
     name: String
   }
 
   input updateSizeInput {
-    idSize: ID
+    idSize: Int
     name: String
   }
 
