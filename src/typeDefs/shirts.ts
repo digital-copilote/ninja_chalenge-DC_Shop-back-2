@@ -10,7 +10,7 @@ type Shirts {
   }
 
   type Query {
-    AllShirts: [Shirts]
+    AllShirts(idTheme: ID): [Shirts]
     OneShirt(idShirt: ID!): Shirts
   }
 

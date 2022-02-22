@@ -6,20 +6,44 @@ import { prisma } from '../lib/prisma';
 import { ErrorHandler } from '../Middleware/errors';
 
 export const shirtsQueries = {
-  AllShirts: async () => {
+  AllShirts: async (
+    _parent: ParentNode,
+    args: { idTheme: number },
+    _context: Context,
+  ) => {
     try {
-      const shirts = await prisma.shirts.findMany({
-        include: {
-          size: true,
-          draw: {
-            include: {
-              theme: true,
-              user: true,
+      if (args.idTheme) {
+        const shirtsCollection = await prisma.shirts.findMany({
+          where: {
+            draw: {
+              idTheme: +args.idTheme,
             },
           },
-        },
-      });
-      return shirts;
+          include: {
+            size: true,
+            draw: {
+              include: {
+                theme: true,
+                user: true,
+              },
+            },
+          },
+        });
+        return shirtsCollection;
+      } else {
+        const shirts = await prisma.shirts.findMany({
+          include: {
+            size: true,
+            draw: {
+              include: {
+                theme: true,
+                user: true,
+              },
+            },
+          },
+        });
+        return shirts;
+      }
     } catch (err) {
       if (err instanceof Error) throw new ErrorHandler(500, err.message);
     }
