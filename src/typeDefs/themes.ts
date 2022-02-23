@@ -2,6 +2,8 @@ export const themesGql = `
 type Themes {
     idTheme: ID!
     name: String
+    color: String
+    iconUrl: String
     draws: [Draws]
   }
 
@@ -13,11 +15,15 @@ type Themes {
   input themeCreateInput {
     idTheme: ID
     name: String
+    color: String
+    iconUrl: String
   }
 
   input updateThemeInput {
     idTheme: ID
     name: String
+    color: String
+    iconUrl: String
   }
 
   type UpdateThemeResponse {
