@@ -7,10 +7,25 @@ import { formatSize } from '../lib/utils';
 import { ErrorHandler } from '../Middleware/errors';
 
 export const sizesQueries = {
-  AllSizes: async () => {
+  AllSizes: async (_parent: ParentNode, args: { idDraw: number }, _context: Context) => {
     try {
-      const sizes = await prisma.sizes.findMany();
-      return sizes;
+      if (args.idDraw) {
+        const sizes = await prisma.sizes.findMany({
+          where: {
+            shirt: {
+              some: {
+                draw: {
+                  idDraw: +args.idDraw,
+                },
+              },
+            },
+          },
+        });
+        return sizes;
+      } else {
+        const sizes = await prisma.sizes.findMany();
+        return sizes;
+      }
     } catch (err) {
       if (err instanceof Error) throw new ErrorHandler(500, err.message);
     }
