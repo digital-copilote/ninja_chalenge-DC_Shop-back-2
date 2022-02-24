@@ -32,6 +32,9 @@ export const shirtsQueries = {
         return shirtsCollection;
       } else {
         const shirts = await prisma.shirts.findMany({
+          where: {
+            idSize: 2,
+          },
           include: {
             size: true,
             draw: {
