@@ -31,6 +31,13 @@ export const userQueries = {
             contains: args.role,
           },
         },
+        include: {
+          draws: {
+            include: {
+              theme: true,
+            },
+          },
+        },
       });
       return artists;
     } catch (err) {
