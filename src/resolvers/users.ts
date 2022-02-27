@@ -14,6 +14,22 @@ export const userQueries = {
     }
   },
 
+  AllArtists: async (_parent: ParentNode, args: { role: string }, _context: Context) => {
+    try {
+      const artists = await prisma.users.findMany({
+        where: {
+          role: {
+            contains: args.role,
+          },
+        },
+      });
+      return artists;
+    } catch (err) {
+      if (err instanceof Error)
+        throw new ErrorHandler(404, "This Role doesn't existing!");
+    }
+  },
+
   OneUser: async (_parent: ParentNode, args: { idUser: number }, _context: Context) => {
     try {
       const user = await prisma.users.findUnique({
