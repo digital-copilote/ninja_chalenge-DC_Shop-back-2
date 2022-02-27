@@ -16,6 +16,7 @@ const handleError = (
   res: Response,
   _next: NextFunction,
 ) => {
+  // eslint-disable-next-line no-console
   console.log(err.statusCode, err.message);
 
   // manage environment PROD/DEV

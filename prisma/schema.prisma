@@ -59,7 +59,9 @@ model Organizations {
 model Themes {
   idTheme Int     @id @default(autoincrement())
   name    String  @db.VarChar(255)
+  color   String  @db.VarChar(15)
   draws   Draws[]
+  iconUrl    String  @db.VarChar(255)
 }
 
 model Draws {
@@ -69,8 +71,8 @@ model Draws {
   idUser         Int
   urlDraw        String        @db.VarChar(255)
   user           Users         @relation(fields: [idUser], references: [idUser])
-  idOrganization Int
-  organization   Organizations @relation(fields: [idOrganization], references: [idOrganization])
+  idOrganization Int?
+  organization   Organizations? @relation(fields: [idOrganization], references: [idOrganization])
   idTheme        Int
   theme          Themes        @relation(fields: [idTheme], references: [idTheme])
   sizes          Shirts[]
@@ -90,7 +92,7 @@ model Shirts {
 model Sizes {
   idSize Int      @id @default(autoincrement())
   name   String   @db.VarChar(5)
-  draws  Shirts[]
+  shirt  Shirts[]
 }
 
 model OrdersItems {
