@@ -6,7 +6,7 @@ type Sizes {
   }
 
   type Query {
-    AllSizes: [Sizes]
+    AllSizes(idDraw: ID): [Sizes]
     OneSize(idSize: ID!): Sizes
   }
 

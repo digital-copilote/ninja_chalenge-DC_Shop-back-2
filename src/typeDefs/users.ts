@@ -19,6 +19,7 @@ type Users {
   
   type Query {
     AllUsers: [Users]
+	AllArtists(role: String): [Users]
     OneUser(idUser: ID!): Users
     UserOrganization(idUser: ID!): [Organizations]
   }
