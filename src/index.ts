@@ -17,6 +17,9 @@ import { shirtsMutations, shirtsQueries } from './resolvers/shirts';
 
 dotenv.config();
 
+// More secure like that if port has been forgotten
+const port = process.env.PORT || 9000;
+
 const main = async () => {
   const app: Application = express();
 
@@ -61,11 +64,9 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(process.env.PORT, () => {
+  app.listen(port, () => {
     // eslint-disable-next-line no-console
-    console.log(
-      `Server ready at http://localhost:${process.env.PORT}${apolloServer.graphqlPath}`,
-    );
+    console.log(`Server ready at http://localhost:${port}${apolloServer.graphqlPath}`);
   });
 };
 

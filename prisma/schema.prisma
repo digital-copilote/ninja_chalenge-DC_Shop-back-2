@@ -10,6 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 🤓 Usually the primary key id of a table is just called 'id'
+// Models must be named in singular, like Types.
+// If you want your db table to be called 'users', you can use @@map(name: "users") 💡
 model Users {
   idUser        Int             @id @default(autoincrement())
   lastname      String          @db.VarChar(100)
@@ -27,6 +30,7 @@ model Users {
   organisations Organizations[]
   draws         Draws[]
 
+  //@@map(name: "users") 💡 here
 }
 
 model Orders {
@@ -37,7 +41,7 @@ model Orders {
   zipCode String        @db.VarChar(10)
   city    String        @db.VarChar(150)
   idUser  Int
-  user    Users         @relation(fields: [idUser], references: [idUser])
+  user    Users         @relation(fields: [idUser], references: [idUser]) // This can be confusing. Whose field is whose?
   shirts  OrdersItems[]
 }
 
@@ -61,21 +65,21 @@ model Themes {
   name    String  @db.VarChar(255)
   color   String  @db.VarChar(15)
   draws   Draws[]
-  iconUrl    String  @db.VarChar(255)
+  iconUrl String  @db.VarChar(255)
 }
 
 model Draws {
 
-  idDraw         Int           @id @default(autoincrement())
-  name           String        @db.VarChar(255)
+  idDraw         Int            @id @default(autoincrement())
+  name           String         @db.VarChar(255)
   idUser         Int
-  urlDraw        String        @db.VarChar(255)
-  user           Users         @relation(fields: [idUser], references: [idUser])
+  urlDraw        String         @db.VarChar(255)
+  user           Users          @relation(fields: [idUser], references: [idUser])
   idOrganization Int?
   organization   Organizations? @relation(fields: [idOrganization], references: [idOrganization])
   idTheme        Int
-  theme          Themes        @relation(fields: [idTheme], references: [idTheme])
-  sizes          Shirts[]
+  theme          Themes         @relation(fields: [idTheme], references: [idTheme])
+  sizes          Shirts[] // sizes are Shirts[] ⁉️
 
 }
 
@@ -103,3 +107,9 @@ model OrdersItems {
   idOrder     Int
   order       Orders @relation(fields: [idOrder], references: [idOrder])
 }
+
+// Usually roles are enums
+// enum Role {
+//   ADMIN
+//   USER
+// }

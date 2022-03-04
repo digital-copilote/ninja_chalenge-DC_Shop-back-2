@@ -4,3 +4,5 @@ export const formatText = (string: string) => {
 export const formatSize = (string: string) => {
   return string.toUpperCase();
 };
+
+// Nice utils ❤️
