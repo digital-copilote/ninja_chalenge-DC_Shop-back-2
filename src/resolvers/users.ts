@@ -17,6 +17,7 @@ export const userQueries = {
           orders: true,
         },
       });
+      // Do you return the password ...? 🤔 😡
       return users;
     } catch (err) {
       if (err instanceof Error) throw new ErrorHandler(500, err.message);

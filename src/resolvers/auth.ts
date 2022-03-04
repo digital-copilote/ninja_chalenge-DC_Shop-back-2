@@ -29,8 +29,13 @@ export const authMutations = {
           user.password,
         );
         if (verifyPassword) {
+          // I think httpOnly cookies are more safe than classic cookies. How many time the signed jwt is valid?
           const token = users.calculateToken(args.data.email, user.idUser);
-          res.cookie('user_token', token);
+          res.cookie('user_token', token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60, // 1 hour
+            secure: !!(process.env.NODE_ENV === 'production'),
+          });
           return user;
         }
       }
